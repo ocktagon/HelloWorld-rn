@@ -8,21 +8,20 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
+  TextInput,
   View
 } from 'react-native';
 
 class HelloWorld extends Component {
   constructor(props){
     super(props);
-    return {
-      zip: ''
-    };
+    this.state = { zip: '' };
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Text style-{styles.welcome}>
+        <Text style={styles.welcome}>
           You Input {this.state.zip}
         </Text>
         <TextInput
