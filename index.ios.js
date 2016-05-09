@@ -1,8 +1,3 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
-
 import React, { Component } from 'react';
 import {
   AppRegistry,
@@ -15,7 +10,14 @@ import {
 class HelloWorld extends Component {
   constructor(props){
     super(props);
-    this.state = { zip: '' };
+    this.state = {
+      zip: '',
+      forecast: {
+        main: 'Clouds',
+        description: 'few clouds',
+        temp: 45.7
+      }
+    };
   }
 
   _handleTextChange(event) {
