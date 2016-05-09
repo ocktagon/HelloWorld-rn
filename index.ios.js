@@ -15,35 +15,64 @@ class HelloWorld extends Component {
     this.state = {
       zip: '',
       forecast: {
-        main: 'Clouds',
-        description: 'few clouds',
-        temp: 45.7
+        main: null,
+        description: null,
+        temp: null
       }
-    };
+    }
+  }
+
+  getWeather(zip){
+    console.log("function working");
+    var url1 = 'http://api.openweathermap.org/data/2.5/weather?zip=';
+    var url2 = ',us&APPID=API_KEY';
+    return fetch(url1 + zip + url2).then((res) => res.json())
+    .then((responseJSON) => {
+      console.log(responseJSON);
+      this.setState({
+        forecast: {
+          temp: responseJSON.main.temp,
+          description: responseJSON.weather[0].description,
+          main: responseJSON.weather[0].main
+        }
+      });
+    });
+
   }
 
   _handleTextChange(event) {
-    console.log(event.nativeEvent.text);
-    this.setState({ zip: event.nativeEvent.text });
+    var zip = event.nativeEvent.text;
+    this.setState({ zip: zip });
+    this.getWeather(zip);
+
   }
 
   render() {
+
+    var content = null;
+    if (this.state.forecast !== null) {
+      content = <Forecast
+                  main={this.state.forecast.main}
+                  description={this.state.forecast.description}
+                  temp={this.state.forecast.temp}/>;
+    }
+
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          Your Input {this.state.zip}
+          Current Weather for {this.state.zip}
         </Text>
-        <Forecast
-          main={this.state.forecast.main}
-          description={this.state.forecast.description}
-          temp={this.state.forecast.temp}
-        />
         <TextInput
           style = {styles.input}
           returnKeyType="go"
           onSubmitEditing={this._handleTextChange.bind(this)}/>
+        <View>
+          {content}
+        </View>
       </View>
     );
+    console.log("hello");
+
   }
 }
 
