@@ -7,6 +7,8 @@ import {
   View
 } from 'react-native';
 
+var Forecast = require('./App/Components/Forecast');
+
 class HelloWorld extends Component {
   constructor(props){
     super(props);
@@ -31,11 +33,15 @@ class HelloWorld extends Component {
         <Text style={styles.welcome}>
           Your Input {this.state.zip}
         </Text>
+        <Forecast
+          main={this.state.forecast.main}
+          description={this.state.forecast.description}
+          temp={this.state.forecast.temp}
+        />
         <TextInput
           style = {styles.input}
+          returnKeyType="go"
           onSubmitEditing={this._handleTextChange.bind(this)}/>
-
-
       </View>
     );
   }
@@ -46,17 +52,12 @@ var styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#4D4D4D',
   },
   welcome: {
     fontSize: 20,
     textAlign: 'center',
     margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
   },
   input: {
     fontSize: 20,
