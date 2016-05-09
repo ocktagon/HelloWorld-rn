@@ -18,15 +18,20 @@ class HelloWorld extends Component {
     this.state = { zip: '' };
   }
 
+  _handleTextChange(event) {
+    console.log(event.nativeEvent.text);
+    this.setState({ zip: event.nativeEvent.text });
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          You Input {this.state.zip}
+          Your Input {this.state.zip}
         </Text>
         <TextInput
           style = {styles.input}
-          onSubmitEditing={this._handleTextChange}/>
+          onSubmitEditing={this._handleTextChange.bind(this)}/>
 
 
       </View>
